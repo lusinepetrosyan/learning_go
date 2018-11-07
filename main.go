@@ -2,22 +2,23 @@ package main
 
 import (
 	"fmt"
+	"github.com/gorilla/mux"
 	"net/http"
 )
 
-func myHandlerFunc(w http.ResponseWriter, r *http.Request){
+func home(w http.ResponseWriter, r *http.Request){
+	w.Header().Set("Content-Type", "text/html")
+	fmt.Fprint(w, "<h1 color='green'>this is my home page</h1>")
+}
 
-	if(r.URL.Path == "/"){
-		fmt.Fprint(w, "welcome to my site")
-	}else if (r.URL.Path == "/contact"){
-		fmt.Fprint(w, "this is a contact page")
-	}else{
-		fmt.Fprint(w, "incorrect page")
-		w.WriteHeader(http.StatusNotFound)
-	}
+func contact(w http.ResponseWriter, r *http.Request){
+	w.Header().Set("Content-Type", "text/html")
+	fmt.Fprint(w, "<h1 color='brown'>this is my contact page</h1>")
 }
 
 func main(){
-	http.HandleFunc("/", myHandlerFunc)
-	http.ListenAndServe(":8000", nil)
+	r := mux.NewRouter()
+	r.HandleFunc("/", home)
+	r.HandleFunc("/contact", contact)
+	http.ListenAndServe(":8000", r)
 }
