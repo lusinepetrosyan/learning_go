@@ -1,38 +1,10 @@
 package main
 
-import (
-	"fmt"
-	"github.com/gorilla/mux"
-	"net/http"
-)
+import "fmt"
 
-func home(w http.ResponseWriter, request *http.Request){
-	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprint(w, "<h1 color='green'>this is my home page</h1>")
-}
+func main()  {
+	myArr := [6]int{1,2,3,14,5,6}
+	var t []int = myArr[1 : 4]  // 4 th index not included
 
-func contact(w http.ResponseWriter, r *http.Request){
-	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprint(w, "<h1 color='brown'>this is my contact page</h1>")
-}
-
-func httpError(w http.ResponseWriter, r *http.Request){
-	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprint(w, "<h1 color='red'>This is my first custom error page</h1>")
-}
-
-func fac(w http.ResponseWriter, r *http.Request){
-	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprint(w, "<h2>This is my FAQ page </h2>" +
-		"<img src='/image.jpg' width='100' height='100'>")
-}
-
-func main(){
-	r := mux.NewRouter()
-	r.HandleFunc("/", home)
-	r.HandleFunc("/contact", contact)
-	r.HandleFunc("/fac", fac)
-	r.NotFoundHandler = http.HandlerFunc(httpError)
-
-	http.ListenAndServe(":8000", r)
+	fmt.Println(t)
 }
