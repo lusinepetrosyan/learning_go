@@ -1,38 +1,16 @@
 package main
 
-import (
-	"fmt"
-	"github.com/gorilla/mux"
-	"net/http"
-)
+import "fmt"
 
-func home(w http.ResponseWriter, request *http.Request){
-	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprint(w, "<h1 color='green'>this is my home page</h1>")
+func main() {
+	var anyArray [4]string
+
+	myArr := [5]int{1, 2, 3, 4, 5}
+	myFunc(myArr, anyArray)
+
+
 }
 
-func contact(w http.ResponseWriter, r *http.Request){
-	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprint(w, "<h1 color='brown'>this is my contact page</h1>")
-}
-
-func httpError(w http.ResponseWriter, r *http.Request){
-	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprint(w, "<h1 color='red'>This is my first custom error page</h1>")
-}
-
-func fac(w http.ResponseWriter, r *http.Request){
-	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprint(w, "<h2>This is my FAQ page </h2>" +
-		"<img src='/image.jpg' width='100' height='100'>")
-}
-
-func main(){
-	r := mux.NewRouter()
-	r.HandleFunc("/", home)
-	r.HandleFunc("/contact", contact)
-	r.HandleFunc("/fac", fac)
-	r.NotFoundHandler = http.HandlerFunc(httpError)
-
-	http.ListenAndServe(":8000", r)
+func myFunc(arr [5]int, anyArr [4]string) {
+	fmt.Println("this is will print copy of array, Not reference of array", arr,"\n and this is empty array of string:", anyArr)
 }
